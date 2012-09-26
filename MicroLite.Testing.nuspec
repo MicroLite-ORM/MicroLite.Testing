@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MicroLite.Testing</id>
+    <version>0.0.0</version>
+    <authors>Trevor Pilley</authors>
+    <owners>Trevor Pilley</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/TrevorPilley/MicroLite.Testing/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A project containing helper classes for testing the code which uses the MicroLite ORM Framework</description>
+    <releaseNotes>See http://github.com/TrevorPilley/MicroLite.Testing/wiki/Release-Notes for a summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>Micro ORM Framework POCO Database TDD Unit Test Testing</tags>
+    <dependencies>
+      <dependency id="MicroLite" version="2.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\build\3.5\MicroLite.Testing.dll" target="lib\net35-client" />
+    <file src="..\build\3.5\MicroLite.Testing.xml" target="lib\net35-client" />
+    <file src="..\build\4.0\MicroLite.Testing.dll" target="lib\net40-client" />
+    <file src="..\build\4.0\MicroLite.Testing.xml" target="lib\net40-client" />
+  </files>
+</package>
