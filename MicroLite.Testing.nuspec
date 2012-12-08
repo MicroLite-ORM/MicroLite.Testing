@@ -21,5 +21,7 @@
     <file src="..\build\3.5\MicroLite.Testing.xml" target="lib\net35-client" />
     <file src="..\build\4.0\MicroLite.Testing.dll" target="lib\net40-client" />
     <file src="..\build\4.0\MicroLite.Testing.xml" target="lib\net40-client" />
+    <file src="..\build\4.5\MicroLite.Testing.dll" target="lib\net45" />
+    <file src="..\build\4.5\MicroLite.Testing.xml" target="lib\net45" />
   </files>
 </package>
