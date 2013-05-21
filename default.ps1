@@ -7,7 +7,7 @@ properties {
   $buildDir45 = "$buildDir\4.5\"
 }
 
-Task Default -depends Build, Build35, Build40, Build45
+Task Default -depends RunTests, Build35, Build40, Build45
 
 Task Build35 {
   Remove-Item -force -recurse $buildDir35 -ErrorAction SilentlyContinue
@@ -28,6 +28,11 @@ Task Build45 {
   
   Write-Host "Building $projectName.csproj for .net 4.5" -ForegroundColor Green
   Exec { msbuild "$projectName\$projectName.csproj" /target:Rebuild "/property:Configuration=Release;DefineConstants=NET_4_5;OutDir=$buildDir45;TargetFrameworkVersion=v4.0" /verbosity:quiet }
+}
+
+Task RunTests -Depends Build {
+  Write-Host "Running $projectName.Tests" -ForegroundColor Green
+  Exec {  & $baseDir\packages\xunit.runners.1.9.1\tools\xunit.console.clr4.exe "$baseDir\$projectName.Tests\bin\Release\$projectName.Tests.dll" }
 }
 
 Task Build -Depends Clean {
