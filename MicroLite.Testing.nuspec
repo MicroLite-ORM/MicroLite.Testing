@@ -6,7 +6,6 @@
     <authors>Trevor Pilley and MicroLite Project Contributors</authors>
     <owners>Trevor Pilley</owners>
     <description>A project containing helper classes for testing the code which uses the MicroLite ORM Framework.</description>
-    <releaseNotes>See http://github.com/TrevorPilley/MicroLite.Testing/wiki/Release-Notes/ for a summary of changes made in this release of the package.</releaseNotes>
     <language>en-GB</language>
     <projectUrl>http://microliteorm.wordpress.com/</projectUrl>
     <licenseUrl>http://microliteorm.wordpress.com/license/</licenseUrl>
