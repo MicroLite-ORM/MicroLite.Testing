@@ -4,6 +4,21 @@
 
     public class IncludeTests
     {
+        public class WhenCallingIncludeManyWithACallback
+        {
+            private readonly IIncludeMany<Customer> include = Include.Many<Customer>();
+
+            [Fact]
+            public void TheCallbackShouldBeInvoked()
+            {
+                var callbackCalled = false;
+
+                this.include.OnLoad(inc => callbackCalled = object.ReferenceEquals(inc, this.include));
+
+                Assert.True(callbackCalled);
+            }
+        }
+
         public class WhenCallingIncludeManyWithoutValues
         {
             private readonly IIncludeMany<Customer> include = Include.Many<Customer>();
@@ -35,6 +50,21 @@
             public void ValuesShouldNotBeEmpty()
             {
                 Assert.NotEmpty(this.include.Values);
+            }
+        }
+
+        public class WhenCallingIncludeSingleWithACallback
+        {
+            private readonly IInclude<Customer> include = Include.Single<Customer>();
+
+            [Fact]
+            public void TheCallbackShouldBeInvoked()
+            {
+                var callbackCalled = false;
+
+                this.include.OnLoad(inc => callbackCalled = object.ReferenceEquals(inc, this.include));
+
+                Assert.True(callbackCalled);
             }
         }
 

@@ -12,6 +12,7 @@
 // -----------------------------------------------------------------------
 namespace MicroLite.Testing
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -85,6 +86,14 @@ namespace MicroLite.Testing
                     return this.values;
                 }
             }
+
+            public void OnLoad(Action<IIncludeMany<T>> action)
+            {
+                if (action != null)
+                {
+                    action(this);
+                }
+            }
         }
 
         private class IncludeSingle<T> : IInclude<T>
@@ -111,6 +120,14 @@ namespace MicroLite.Testing
                 get
                 {
                     return this.value;
+                }
+            }
+
+            public void OnLoad(Action<IInclude<T>> action)
+            {
+                if (action != null)
+                {
+                    action(this);
                 }
             }
         }
