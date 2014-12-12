@@ -13,7 +13,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>Micro ORM Framework POCO Database TDD Unit Test Testing</tags>
     <dependencies>
-      <dependency id="MicroLite" version="6.0.0-rc" />
+      <dependency id="MicroLite" version="6.0.0" />
     </dependencies>
   </metadata>
   <files>
