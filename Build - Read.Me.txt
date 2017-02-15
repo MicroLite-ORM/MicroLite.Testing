@@ -1,3 +1,5 @@
+The build scripts etc assume that the repository is checked out to C:\Source\GitHub\MicroLite.Testing\ - if this is not the case, you may not be able to run the build scripts.
+
 Requirements:
  
   - Visual Studio 2015 or later
@@ -18,5 +20,3 @@ If running on a 64 bit machine, run the PowerShell (x86) executable otherwise th
 ** To also push it to NuGet.org after creating the .nupkg you must supply push true:
 
 	.\build-nuget.ps1 -version X.X.X -push $true
-
-The project references 3.5 client profile but it is built against 4.0 as well in the build script.
