@@ -1,46 +1,51 @@
 properties {
+  $buildVersion
   $projectName = "MicroLite.Testing"
   $baseDir = Resolve-Path .
   $buildDir = "$baseDir\build"
-  $buildDir35 = "$buildDir\3.5\"
-  $buildDir40 = "$buildDir\4.0\"
-  $buildDir45 = "$buildDir\4.5\"
+  $helpDir = "$buildDir\help\"
+  $msbuild = "C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe"
+
+  $builds = @(
+    @{ Name = "NET35"; Constants="NET35"; BuildDir="$buildDir\3.5\"; Framework="v3.5;TargetFrameworkProfile=Client" },
+    @{ Name = "NET40"; Constants="NET40"; BuildDir="$buildDir\4.0\"; Framework="v4.0;TargetFrameworkProfile=Client" },
+    @{ Name = "NET45"; Constants="NET45"; BuildDir="$buildDir\4.5\"; Framework="v4.5" },
+    @{ Name = "NET46"; Constants="NET46"; BuildDir="$buildDir\4.6\"; Framework="v4.6" }
+  )
 }
 
-Task Default -depends RunTests, Build35, Build40, Build45
+Task Default -depends RunTests
 
-Task Build35 {
-  Remove-Item -force -recurse $buildDir35 -ErrorAction SilentlyContinue
-  
-  Write-Host "Building $projectName.csproj for .net 3.5" -ForegroundColor Green
-  Exec { msbuild "$projectName\$projectName.csproj" /target:Rebuild "/property:Configuration=Release;OutDir=$buildDir35;TargetFrameworkVersion=v3.5;TargetFrameworkProfile=Client" /verbosity:quiet }
-}
-
-Task Build40 {
-  Remove-Item -force -recurse $buildDir40 -ErrorAction SilentlyContinue
-  
-  Write-Host "Building $projectName.csproj for .net 4.0" -ForegroundColor Green
-  Exec { msbuild "$projectName\$projectName.csproj" /target:Rebuild "/property:Configuration=Release;DefineConstants=NET_4_0;OutDir=$buildDir40;TargetFrameworkVersion=v4.0;TargetFrameworkProfile=Client" /verbosity:quiet }
-}
-
-Task Build45 {
-  Remove-Item -force -recurse $buildDir45 -ErrorAction SilentlyContinue
-  
-  Write-Host "Building $projectName.csproj for .net 4.5" -ForegroundColor Green
-  Exec { msbuild "$projectName\$projectName.csproj" /target:Rebuild "/property:Configuration=Release;DefineConstants=NET_4_5;OutDir=$buildDir45;TargetFrameworkVersion=v4.5" /verbosity:quiet }
-}
-
-Task RunTests -Depends Build {
-  Write-Host "Running $projectName.Tests" -ForegroundColor Green
-  Exec {  & $baseDir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe "$baseDir\$projectName.Tests\bin\Release\$projectName.Tests.dll" }
+Task Clean {
+  Write-Host "Cleaning $projectName Build Directory" -ForegroundColor Green
+  foreach ($build in $builds) {
+    $outDir = $build.BuildDir
+    Remove-Item -force -recurse $outDir -ErrorAction SilentlyContinue
+  }
+  Remove-Item -force -recurse $helpDir -ErrorAction SilentlyContinue
+  Write-Host
 }
 
 Task Build -Depends Clean {
-  Write-Host "Building $projectName.sln" -ForegroundColor Green
-  Exec { msbuild "$projectName.sln" /target:Build /property:Configuration=Release /verbosity:quiet }  
+  foreach ($build in $builds) {
+    $name = $build.Name
+    Write-Host "Building $projectName.$name.sln" -ForegroundColor Green
+
+    $constants = $build.Constants
+    $outDir = $build.BuildDir
+    $netVer = $build.Framework
+    &"$msbuild" "$projectName.$name.sln" "/target:Clean;Rebuild" "/property:Configuration=Release;WarningLevel=1;DefineConstants=$constants;OutDir=$outDir;TargetFrameworkVersion=$netVer" /verbosity:quiet
+  }
+  Write-Host
 }
 
-Task Clean {
-  Write-Host "Cleaning $projectName.sln" -ForegroundColor Green
-  Exec { msbuild "$projectName.sln" /t:Clean /p:Configuration=Release /v:quiet }
+Task RunTests -Depends Build {
+  foreach ($build in $builds) {
+    $name = $build.Name
+    Write-Host "Running $projectName.Tests.$name" -ForegroundColor Green
+
+    $outDir = $build.BuildDir
+    Exec { & $baseDir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe "$outDir\$projectName.Tests.dll" }
+  }
+  Write-Host
 }
