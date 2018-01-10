@@ -1,14 +1,28 @@
-﻿using System.Reflection;
+﻿// -----------------------------------------------------------------------
+// <copyright file="AssemblyInfo.cs" company="MicroLite">
+// Copyright 2012 - 2017 Project Contributors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// </copyright>
+// -----------------------------------------------------------------------
+using System;
+using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MicroLite.Testing.Tests")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("MicroLite.Testing")]
+[assembly: AssemblyDescription("A project containing helper classes for testing the code which uses the MicroLite ORM Framework")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MicroLite.Testing.Tests")]
+[assembly: AssemblyCompany("MicroLite")]
+[assembly: AssemblyProduct("MicroLite.Testing")]
 [assembly: AssemblyCopyright("Copyright 2012 - 2018 Project Contributors all rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +33,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d2e50cda-9bb7-43e3-8928-4a6bc270e17c")]
+[assembly: Guid("a0d0712b-379d-47c3-8bb4-f51470453ce2")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -27,9 +41,8 @@ using System.Runtime.InteropServices;
 //      Minor Version
 //      Build Number
 //      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers
-// by using the '*' as shown below:
 [assembly: AssemblyVersion("6.3.0.0")]
 [assembly: AssemblyFileVersion("6.3.0.0")]
 [assembly: AssemblyInformationalVersion("6.3.0.63")]
+[assembly: CLSCompliant(true)]
+[assembly: NeutralResourcesLanguageAttribute("en-GB")]
