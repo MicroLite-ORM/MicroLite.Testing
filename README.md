@@ -1,7 +1,7 @@
 MicroLite.Testing
 =================
 
-[![NuGet version](https://badge.fury.io/nu/MicroLite.Testing.svg)](http://badge.fury.io/nu/MicroLite.Testing)
+[![NuGet version](https://badge.fury.io/nu/MicroLite.Testing.svg)](http://badge.fury.io/nu/MicroLite.Testing) [![Build Status](https://trevorpilley.visualstudio.com/_apis/public/build/definitions/4cf9ae80-460f-4dc8-a6fd-815e9e58ad35/14/badge)](https://trevorpilley.visualstudio.com/MicroLite.Testing)
 
 A project containing helper classes for testing the code which uses the MicroLite ORM Framework.
 
