@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="Include.cs" company="MicroLite">
-// Copyright 2012 - 2018 Project Contributors
+// <copyright file="Include.cs" company="Project Contributors">
+// Copyright Project Contributors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -10,11 +10,11 @@
 //
 // </copyright>
 // -----------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+
 namespace MicroLite.Testing
 {
-    using System;
-    using System.Collections.Generic;
-
     /// <summary>
     /// A class which contains helper methods to create IIncludes for unit tests.
     /// </summary>
@@ -40,7 +40,11 @@ namespace MicroLite.Testing
         /// </summary>
         /// <typeparam name="T">The type of included value.</typeparam>
         /// <returns>An <see cref="IInclude&lt;T&gt;"/> where the HasResults is false and Result returns the default value of the specified type.</returns>
-        public static IInclude<T> Single<T>() => new IncludeSingle<T>(default(T), hasValue: false);
+#pragma warning disable CA1720 // Identifier contains type name
+
+        public static IInclude<T> Single<T>() => new IncludeSingle<T>(default, hasValue: false);
+
+#pragma warning restore CA1720 // Identifier contains type name
 
         /// <summary>
         /// Creates an <see cref="IInclude&lt;T&gt;"/> where the HasResults is true and Result returns the specified single value.
@@ -48,50 +52,39 @@ namespace MicroLite.Testing
         /// <typeparam name="T">The type of included value.</typeparam>
         /// <param name="value">The included value.</param>
         /// <returns>An <see cref="IInclude&lt;T&gt;"/> where the HasResults is true and Result returns the specified single value.</returns>
+#pragma warning disable CA1720 // Identifier contains type name
+
         public static IInclude<T> Single<T>(T value) => new IncludeSingle<T>(value, hasValue: true);
+
+#pragma warning restore CA1720 // Identifier contains type name
 
         private sealed class IncludeMany<T> : IIncludeMany<T>
         {
             internal IncludeMany(IList<T> values)
             {
-                this.Values = values;
+                Values = values;
             }
 
-            public bool HasValue => this.Values.Count > 0;
+            public bool HasValue => Values.Count > 0;
 
-            public IList<T> Values
-            {
-                get;
-            }
+            public IList<T> Values { get; }
 
-            public void OnLoad(Action<IIncludeMany<T>> action)
-            {
-                action?.Invoke(this);
-            }
+            public void OnLoad(Action<IIncludeMany<T>> action) => action?.Invoke(this);
         }
 
         private class IncludeSingle<T> : IInclude<T>
         {
             internal IncludeSingle(T value, bool hasValue)
             {
-                this.Value = value;
-                this.HasValue = hasValue;
+                Value = value;
+                HasValue = hasValue;
             }
 
-            public bool HasValue
-            {
-                get;
-            }
+            public bool HasValue { get; }
 
-            public T Value
-            {
-                get;
-            }
+            public T Value { get; }
 
-            public void OnLoad(Action<IInclude<T>> action)
-            {
-                action?.Invoke(this);
-            }
+            public void OnLoad(Action<IInclude<T>> action) => action?.Invoke(this);
         }
     }
 }
