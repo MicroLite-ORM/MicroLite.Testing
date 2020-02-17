@@ -16,3 +16,4 @@ See the [MicroLite Testing Released](http://microliteorm.wordpress.com/2012/09/2
 The NuGet Package contains binaries compiled against:
 
 * .NET Framework 4.5
+* - MicroLite 6.3.1
