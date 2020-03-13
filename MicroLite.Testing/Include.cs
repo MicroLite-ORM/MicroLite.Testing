@@ -60,10 +60,7 @@ namespace MicroLite.Testing
 
         private sealed class IncludeMany<T> : IIncludeMany<T>
         {
-            internal IncludeMany(IList<T> values)
-            {
-                Values = values;
-            }
+            internal IncludeMany(IList<T> values) => Values = values;
 
             public bool HasValue => Values.Count > 0;
 
